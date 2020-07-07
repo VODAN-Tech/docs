@@ -3,7 +3,7 @@ About the VODAN in a Box
 ************************
 
 What is VODAN in a Box?
-----------------------
+-----------------------
 
 **VODAN in a Box (ViaB)** is a toolset to facilitate the capture of data related to virus outbreaks and the publication of metadata describing these datasets.
 

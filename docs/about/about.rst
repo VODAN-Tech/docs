@@ -10,7 +10,7 @@ What is VODAN in a Box?
 The toolset can be deployed wherever the user wants. It can be deployed in a cloud provider, in a server or on a local machine. Naturally, the first two options can be made accessible anywhere on the Web while the third option is normally for testing and demonstration purposes only. This deployment freedom provides flexibility for users who want **ViaB** the (meta)data to be stored locally (e.g., in a given hospital), nationally or internationally.
 
 What is in the "box"?
-----------------------------------------------
+---------------------
 
 **VODAN in a Box** is composed of:
 

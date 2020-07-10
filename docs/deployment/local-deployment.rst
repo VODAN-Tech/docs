@@ -1,47 +1,70 @@
+.. _local-deployment:
+
 ****************
 Local Deployment
 ****************
 
-.. NOTE::
-
-   This part of documentation is currently **under development**.
-
 .. IMPORTANT::
 
-   This deployment is inteded only for testing purposes and should not serve for real production use. If you want to provide VODAN-in-a-Box to others, visit :ref:`production-deployment`.
+   This deployment is intended only for testing and demonstration purposes and should not serve for real production use. If you want to provide *VODAN in a Box* as a service, visit :ref:`production-deployment`.
 
 Requirements
 ============
 
-- Docker Engine version 19.03
+- `Docker Engine <https://docs.docker.com/get-docker/>`_ version 19.03 (or higher)
+- `Docker Compose <https://docs.docker.com/compose/install/>`_ version 1.25 (or higher)
 
 Setup
 =====
 
-1. Download or ``git clone`` repository https://github.com/VODAN-Tech/vodan-deployment-basic locally
-2. Change working directory ``cd vodan-deployment-basic``
-3. Run ``docker-compose up -d``
+1. `Download <https://github.com/VODAN-Tech/vodan-deployment-basic/archive/master.zip>`_ or ``git clone`` repository https://github.com/VODAN-Tech/vodan-deployment-basic locally
+2. Change working directory to the root folder ``vodan-deployment-basic``
+3. Use `docker-compose <https://docs.docker.com/compose/>`_ to start *VODAN in a Box*
 
-Persistence
------------
 
-Changing ports
---------------
+.. code-block:: shell
 
-If you need to change ports because you already use those for other services, you just need to adjust the mappings in ``docker-compose.yml`` file. For example, if you want to access FDP on other port than ``8081`` change the mapping ``8081:80`` to something else, e.g., ``8881:80``.
+   git clone https://github.com/VODAN-Tech/vodan-deployment-basic.git
+   cd vodan-deployment-basic
+   docker-compose up -d
+
+For additional configuration options, see :ref:`configuration`.
 
 Usage
 =====
 
-When VODAN-in-a-Box is running, you can access the following services:
+When *VODAN in a Box* is running, you can access the following services:
 
-- http://localhost:8080 - DSW
-- http://localhost:8081 - FDP
-- http://localhost:8082 - BlazeGraph
-- http://localhost:27017 - MongoDB
-- http://localhost:3000 - DSW API
+- http://localhost:8080 - CRF Wizard (DSW)
+- http://localhost:8081 - FAIR Data Point (FDP)
+- http://localhost:8085/blazegraph - BlazeGraph
+- http://localhost:27017 - MongoDB (for MongoDB clients)
+- http://localhost:3000 - CRF Wizard API
 
-For both DSW and FDP, you can use default admin account ``albert.einstein@example.com`` with password ``password``. BlazeGraph and MongoDB are by default without authentication.
+For both CRF Wizard and FDP, you can use default admin account ``albert.einstein@example.com`` with password ``password``. BlazeGraph and MongoDB are without any authentication.
+
+- To start *VODAN in a Box*, use ``docker-compose up -d`` in the root directory.
+- To stop *VODAN in a Box*, use ``docker-compose down`` in the root directory.
+- To restart *VODAN in a Box*, use first ``docker-compose down`` and then ``docker-compose up -d`` again.
+- To see running services of *VODAN in a Box* and their status, use ``docker-compose ps``.
+- For debugging and investigating logs, use ``docker-compose logs`` (or ``docker-compose logs -f``).
+
+Update
+======
+
+1. Stop *VODAN in a Box*
+2. Overwrite configurations and ``docker-compose.yml`` or simply ``git pull``
+3. Start *VODAN in a Box* again
+
+
+From root directory of ``vodan-deployment-basic``:
+
+.. code-block:: shell
+
+   docker-compose down
+   git pull
+   docker-compose up -d
+
 
 Notes
 =====

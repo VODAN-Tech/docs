@@ -15,6 +15,7 @@ VODAN in a Box Documentation
 
    deployment/local-deployment
    deployment/production-deployment
+   deployment/configuration
 
 
 Indices and tables

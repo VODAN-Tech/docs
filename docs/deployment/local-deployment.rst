@@ -37,7 +37,7 @@ When *VODAN in a Box* is running, you can access the following services:
 
 - http://localhost:8080 - CRF Wizard (DSW)
 - http://localhost:8081 - FAIR Data Point (FDP)
-- http://localhost:8085/blazegraph - BlazeGraph
+- http://localhost:8085/blazegraph - `BlazeGraph <https://blazegraph.com>`_
 - http://localhost:27017 - MongoDB (for MongoDB clients)
 - http://localhost:3000 - CRF Wizard API
 
@@ -48,6 +48,8 @@ For both CRF Wizard and FDP, you can use default admin account ``albert.einstein
 - To restart *VODAN in a Box*, use first ``docker-compose down`` and then ``docker-compose up -d`` again.
 - To see running services of *VODAN in a Box* and their status, use ``docker-compose ps``.
 - For debugging and investigating logs, use ``docker-compose logs`` (or ``docker-compose logs -f``).
+
+Optionally, you can also use separate `AllegroGraph <https://franz.com/agraph/support/documentation/current/agraph-introduction.html>`_ for submitted CRF data. To do that, simply uncomment ``agraph`` section in ``docker-compose.yml`` and update ``submission-service/config.yml``. Then, you will be able to access it on http://localhost:10035. Of course, you can similarly set any other triple store of your choice.
 
 Update
 ======

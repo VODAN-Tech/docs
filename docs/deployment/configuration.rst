@@ -81,8 +81,9 @@ To simplify the setup, *VODAN in a Box* uses the same triple store and the same 
 .. code-block:: yaml
 
    triple-store:
-     sparql-endpoint: http://my-triple.store/repository/sparql  # <- change to your SPARQL endpoint
+     sparql-endpoint: http://my-triple.store/repository/my-crf-repo/sparql  # <- change to your SPARQL endpoint
      auth:  # <- only if triple store uses auth
+       method: BASIC  # <- authentication method: BASIC (default) or DIGEST
        username: usernameToMyTripleStore  # <- change to your triple store username
        password: passwordToMyTripleStore  # <- change to your triple store password
      graph:  # !! do not change this section

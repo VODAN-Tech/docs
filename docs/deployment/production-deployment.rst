@@ -18,6 +18,7 @@ Requirements
   - ``dsw.your-domain.tld`` - for CRF Wizard (DSW)
   - ``api.dsw.your-domain.tld`` - for CRF Wizard API (DSW API)
   - ``fdp.your-domain.tld`` - for FAIR Data Point
+  - ``sparql.your-domain.tld`` - for Triple Store (CRF data)
   
 - `certbot <https://certbot.eff.org>`_
 
@@ -36,10 +37,11 @@ Configure domains and secrets
 
 There are several things that you need to configure before running *VODAN in a Box* for production deployment. In files, look for comments marked with ``(!)``:
 
-1. ``server_name`` and ``ssl_certificate`` values in ``proxy/nginx/dsw.conf`` and ``proxy/nginx/fdp.conf`` with your domain names. Those need to have valid DNS records pointing to that server.
+1. ``server_name`` and ``ssl_certificate`` values in ``proxy/nginx/agraph.conf``, ``proxy/nginx/dsw.conf``, and ``proxy/nginx/fdp.conf`` with your domain names. Those need to have valid DNS records pointing to that server.
 2. ``docker-compose.yml`` -  ``API_URL`` (``dsw_client`` service) to your value for ``api.dsw.your-domain.tld``
 3. ``dsw-server/application.yml`` - ``clientUrl`` to your value for  ``dsw.your-domain.tld``, then ``secret``, ``serviceToken``, and ``email`` section according to the comments there
-4. ``fdp/application.yml`` - ``clientUrl`` to your value for ``fdp.your-domain.tld`` and then , ``persistentUrl``, ``secret``, ``serviceToken``, and ``secret-key`` (JWT) 
+4. ``fdp/application.yml`` - ``clientUrl`` to your value for ``fdp.your-domain.tld`` and then , ``persistentUrl``, ``secret``, ``serviceToken``, and ``secret-key`` (JWT)
+5. ``allegrograph/agraph.cfg`` - set strong password and optionally change username using ``SuperUser`` directive, the same credentials must be configured in ``submission-service/config.yml``
 
 Obtain SSL certificates
 -----------------------
@@ -64,11 +66,12 @@ First start
 
 1. Start *VODAN in a Box* using ``docker-compose up -d`` (and wait a bit until all services start).
 2. Navigate to ``dsw.your-domain.tld``, login using ``albert.einstein@example.com`` with password ``password`` and change default user accounts with strong passwords.
-3. Navigate to ``fdp.your-domain.tld`` and login again as ``albert.einstein@example.com`` and change default user accounts with strong passwords.
-4. In ``fdp.your-domain.tld``, create and publish catalog, dataset, and distribution representing CRF data based on your use case.
-5. Update ``submission-service/config.yml`` with UUID of your distribution from FDP and additionally with custom triple store SPARQL endpoint for submitting CRF data.
-6. Restart *VODAN in a Box* using ``docker-compose down`` and ``docker-compose up -d``.
-7. Verify setup by creating CRF, saving it, creating a report, and submitting a report.
+3. In ``sparql.your-domain.tld``, create a repository ``crf`` in catalog ``/`` and create other users with permissions according to your needs (see `AllegroGraph documentation <https://franz.com/agraph/support/documentation/current/managing-users.html#Managing-users-with-AGWebView:-general-comments>`_ for details). 
+4. Navigate to ``fdp.your-domain.tld`` and login again as ``albert.einstein@example.com`` and change default user accounts with strong passwords.
+5. In ``fdp.your-domain.tld``, create and publish catalog, dataset, and distribution representing CRF data based on your use case.
+6. Update ``submission-service/config.yml`` with UUID of your distribution from FDP. (If you used different than ``crf`` repository name in triple store, change ``sparql-endpoint`` accordingly.)
+7. Restart *VODAN in a Box* using ``docker-compose down`` and ``docker-compose up -d``.
+8. Verify setup by creating CRF, saving it, creating a report, and submitting a report.
 
 🎉 After this, your *VODAN in a Box* is ready to be used!
 

@@ -55,9 +55,14 @@ Before providing *VODAN in a Box* you need also to get SSL certificates to be ab
   - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d dsw.your-domain.tld``
   - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d api.dsw.your-domain.tld``
   - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d fdp.your-domain.tld``
+  - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d sparql.your-domain.tld``
 
-4. Stop with ``docker-compose down``
-5. Uncomment lines at the end of ``proxy/nginx/nginx.conf``
+4. Create certificate file for AllegroGraph (it needs to merge ``cert.pem`` and ``privkey.pem`` obtained by Let's Encrypt into a single file):
+
+  - ``sudo cat /etc/letsencrypt/live/sparql.your-domain.tld/cert.pem  /etc/letsencrypt/live/sparql.your-domain.tld/privkey.pem > ./allegrograph/cert.pem ``
+
+5. Stop with ``docker-compose down``
+6. Uncomment lines at the end of ``proxy/nginx/nginx.conf``
 
 If getting certificates fail, it can be caused by incorrectly set DNS records. Optionally, verify if Nginx container is running and view its logs. You should also setup certificates renewal according to `Certbot documentation <https://certbot.eff.org/docs/using.html#renewing-certificates>`_.
 
@@ -66,7 +71,7 @@ First start
 
 1. Start *VODAN in a Box* using ``docker-compose up -d`` (and wait a bit until all services start).
 2. Navigate to ``dsw.your-domain.tld``, login using ``albert.einstein@example.com`` with password ``password`` and change default user accounts with strong passwords.
-3. In ``sparql.your-domain.tld``, create a repository ``crf`` in catalog ``/`` and create other users with permissions according to your needs (see `AllegroGraph documentation <https://franz.com/agraph/support/documentation/current/managing-users.html#Managing-users-with-AGWebView:-general-comments>`_ for details). 
+3. In ``sparql.your-domain.tld``, create a repository ``crf`` in catalog ``/`` and create other users with permissions according to your needs (see `AllegroGraph documentation <https://franz.com/agraph/support/documentation/current/managing-users.html#Managing-users-with-AGWebView:-general-comments>`_ for details). For example, create an *anonymous* user with only *read* permissions to catalog */* and repository *crf*.
 4. Navigate to ``fdp.your-domain.tld`` and login again as ``albert.einstein@example.com`` and change default user accounts with strong passwords.
 5. In ``fdp.your-domain.tld``, create and publish catalog, dataset, and distribution representing CRF data based on your use case.
 6. Update ``submission-service/config.yml`` with UUID of your distribution from FDP. (If you used different than ``crf`` repository name in triple store, change ``sparql-endpoint`` accordingly.)

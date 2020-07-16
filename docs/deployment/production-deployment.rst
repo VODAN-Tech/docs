@@ -49,7 +49,7 @@ Obtain SSL certificates
 Before providing *VODAN in a Box* you need also to get SSL certificates to be able to use HTTPS. We recommend using Let's Encrypt but you can use any other way and change Nginx proxy configuration accordingly.
 
 1. Comment out ``include`` lines at the end of ``proxy/nginx/nginx.conf``
-2. Start with ``docker-compose up -d``
+2. Start with ``docker-compose up -d proxy``
 3. Get certificates for your domains:
 
   - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d dsw.your-domain.tld``

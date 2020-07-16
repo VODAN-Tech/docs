@@ -113,3 +113,12 @@ If you need to change ports because you already use those for other services, yo
        - 8885:8080  # <- USING 8885 INSTEAD OF 8085
      volumes:
        - ./blazegraph:/blazegraph-data
+
+CRF visibility
+==============
+
+You can easily change settings regarding CRF visibility according to your needs. In CRF Wizard (DSW), navigate as administrator to ::guilabel:`Settings` and :guilabel:`CRFs`. You can allow to set visibility per single CRF upon its creation and also select the default one:
+
+*  **Public** = every user can view and edit the CRF
+*  **Public Read-only** = every user can view the CRF but only owner can edit it
+*  **Private** = only owner can view and edit the CRF

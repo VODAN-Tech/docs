@@ -59,7 +59,7 @@ Before providing *VODAN in a Box* you need also to get SSL certificates to be ab
 
 4. Create certificate file for AllegroGraph (it needs to merge ``cert.pem`` and ``privkey.pem`` obtained by Let's Encrypt into a single file):
 
-  - ``sudo cat /etc/letsencrypt/live/sparql.your-domain.tld/cert.pem  /etc/letsencrypt/live/sparql.your-domain.tld/privkey.pem > ./allegrograph/cert.pem ``
+  - ``sudo cat /etc/letsencrypt/live/sparql.your-domain.tld/cert.pem  /etc/letsencrypt/live/sparql.your-domain.tld/privkey.pem > ./allegrograph/cert.pem``
 
 5. Stop with ``docker-compose down``
 6. Uncomment lines at the end of ``proxy/nginx/nginx.conf``

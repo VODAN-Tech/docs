@@ -47,7 +47,7 @@ This allows you to easily work with data used by *VODAN in a Box*. For example, 
      blazegraphData:
 
 
-To avoid persistence totally (i.e. all data will be lost after ``docker-compose down``). Just comment out or delete lines related to mounting volumes in ``docker-compose.yml```:
+To avoid persistence totally (i.e. all data will be lost after ``docker-compose down``). Just comment out or delete lines related to mounting volumes in ``docker-compose.yml``:
 
 .. code-block:: yaml
 

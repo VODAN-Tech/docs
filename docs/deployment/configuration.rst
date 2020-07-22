@@ -117,8 +117,22 @@ If you need to change ports because you already use those for other services, yo
 CRF visibility
 ==============
 
-You can easily change settings regarding CRF visibility according to your needs. In CRF Wizard (DSW), navigate as administrator to ::guilabel:`Settings` and :guilabel:`CRFs`. You can allow to set visibility per single CRF upon its creation and also select the default one:
+You can easily change settings regarding CRF visibility according to your needs. In CRF Wizard (DSW), navigate as administrator to :guilabel:`Settings` and :guilabel:`CRFs`. You can allow to set visibility per single CRF upon its creation and also select the default one:
 
 *  **Public** = every user can view and edit the CRF
 *  **Public Read-only** = every user can view the CRF but only owner can edit it
 *  **Private** = only owner can view and edit the CRF
+
+CRF Wizard emails
+=================
+
+There is optional configuration in ``dsw-server/application.yml`` related to email server. You need that to enable:
+
+- User registrations with email-based verification: upon registration a verification email is sent, otherwise administrator have to set new accounts as *Active* manually in users administration.
+- Password recovery: when someone forgots password, they can ask for reset link that will be sent to their email address, otherwise it can be again changes only by administrators.
+
+To make those emails working, fill the configuration with your SMTP server and accoung. We recommend using secured emails with SSL/TLS or STARTTLS. For more information, visit `DSW documentation <https://docs.ds-wizard.org/en/latest/admin/configuration.html#mail>`_.
+
+.. NOTE::
+
+   Registrations can be totally turned off using :guilabel:`Settings` and :guilabel:`Authentication`.

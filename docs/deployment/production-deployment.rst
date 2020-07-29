@@ -49,19 +49,42 @@ Obtain SSL certificates
 Before providing *VODAN in a Box* you need also to get SSL certificates to be able to use HTTPS. We recommend using Let's Encrypt but you can use any other way and change Nginx proxy configuration accordingly.
 
 1. Comment out ``include`` lines at the end of ``proxy/nginx/nginx.conf``
-2. Start with ``docker-compose up -d proxy``
+2. Start the proxy service
+
+.. code-block:: shell
+
+  docker-compose up -d proxy
+
 3. Get certificates for your domains:
 
-  - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d dsw.your-domain.tld``
-  - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d api.dsw.your-domain.tld``
-  - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d fdp.your-domain.tld``
-  - ``sudo certbot certonly --webroot -w ./proxy/letsencrypt -d sparql.your-domain.tld``
+.. code-block:: shell
+
+  sudo certbot certonly --webroot -w ./proxy/letsencrypt -d dsw.your-domain.tld
+
+.. code-block:: shell
+
+  sudo certbot certonly --webroot -w ./proxy/letsencrypt -d api.dsw.your-domain.tld
+
+.. code-block:: shell
+
+  sudo certbot certonly --webroot -w ./proxy/letsencrypt -d fdp.your-domain.tld
+
+.. code-block:: shell
+
+  sudo certbot certonly --webroot -w ./proxy/letsencrypt -d sparql.your-domain.tld
 
 4. Create certificate file for AllegroGraph (it needs to merge ``cert.pem`` and ``privkey.pem`` obtained by Let's Encrypt into a single file):
 
-  - ``sudo cat /etc/letsencrypt/live/sparql.your-domain.tld/cert.pem  /etc/letsencrypt/live/sparql.your-domain.tld/privkey.pem > ./allegrograph/cert.pem``
+.. code-block:: shell
 
-5. Stop with ``docker-compose down``
+  sudo cat /etc/letsencrypt/live/sparql.your-domain.tld/cert.pem  /etc/letsencrypt/live/sparql.your-domain.tld/privkey.pem > ./allegrograph/cert.pem
+
+5. Stop the proxy service
+
+.. code-block:: shell
+
+  docker-compose down
+
 6. Uncomment lines at the end of ``proxy/nginx/nginx.conf``
 
 If getting certificates fail, it can be caused by incorrectly set DNS records. Optionally, verify if Nginx container is running and view its logs. You should also setup certificates renewal according to `Certbot documentation <https://certbot.eff.org/docs/using.html#renewing-certificates>`_.
@@ -69,13 +92,24 @@ If getting certificates fail, it can be caused by incorrectly set DNS records. O
 First start
 -----------
 
-1. Start *VODAN in a Box* using ``docker-compose up -d`` (and wait a bit until all services start).
+1. Start *VODAN in a Box* (and wait a bit until all services start).
+
+.. code-block:: shell
+
+   docker-compose up -d
+
 2. Navigate to ``dsw.your-domain.tld``, login using ``albert.einstein@example.com`` with password ``password`` and change default user accounts with **strong passwords**.
 3. In ``sparql.your-domain.tld``, create a repository ``crf`` in catalog ``/`` and create other users with permissions according to your needs (see `AllegroGraph documentation <https://franz.com/agraph/support/documentation/current/managing-users.html#Managing-users-with-AGWebView:-general-comments>`_ for details). For example, create an *anonymous* user with only *read* permissions to catalog */* and repository *crf*.
 4. Navigate to ``fdp.your-domain.tld`` and login again as ``albert.einstein@example.com`` and change default user accounts with **strong passwords**.
 5. In ``fdp.your-domain.tld``, create and publish catalog, dataset, and distribution representing CRF data based on your use case.
 6. Update ``submission-service/config.yml`` with :abbr:`UUID (Universally Unique Identifier)` of your distribution URL from FDP, e.g. from ``https://fdp.vodan.fairdatapoint.org/distribution/3335345b-ee66-4678-ab73-74a4b6ea1bee`` it would be ``3335345b-ee66-4678-ab73-74a4b6ea1bee``. (If you used different than ``crf`` repository name in triple store, change ``sparql-endpoint`` accordingly.)
-7. Restart *VODAN in a Box* using ``docker-compose down`` and ``docker-compose up -d``. Wait a bit until all services start up (depending on your hardware, less than a minute).
+7. Restart *VODAN in a Box* and wait a bit until all services start up (depending on your hardware, less than a minute).
+
+.. code-block:: shell
+
+   docker-compose down
+   docker-compose up -d
+
 8. Verify setup by creating CRF, saving it, creating a report, and submitting a report.
 
 🎉 After this, your *VODAN in a Box* is ready to be used!

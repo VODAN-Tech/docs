@@ -41,7 +41,7 @@ There are several things that you need to configure before running *VODAN in a B
 2. ``docker-compose.yml`` -  ``API_URL`` (``dsw_client`` service) to your value for ``api.dsw.your-domain.tld``
 3. ``dsw-server/application.yml`` - ``clientUrl`` to your value for  ``dsw.your-domain.tld``, then ``secret``, ``serviceToken``, and ``email`` section according to the comments there
 4. ``fdp/application.yml`` - ``clientUrl`` to your value for ``fdp.your-domain.tld`` and then , ``persistentUrl``, ``secret``, ``serviceToken``, and ``secret-key`` (JWT)
-5. ``allegrograph/agraph.cfg`` - set strong password and optionally change username using ``SuperUser`` directive, the same credentials must be configured in ``submission-service/config.yml``
+5. ``allegrograph/agraph.cfg`` - set **strong password** and optionally change username using ``SuperUser`` directive, the same credentials must be configured in ``submission-service/config.yml``
 
 Obtain SSL certificates
 -----------------------
@@ -70,17 +70,19 @@ First start
 -----------
 
 1. Start *VODAN in a Box* using ``docker-compose up -d`` (and wait a bit until all services start).
-2. Navigate to ``dsw.your-domain.tld``, login using ``albert.einstein@example.com`` with password ``password`` and change default user accounts with strong passwords.
+2. Navigate to ``dsw.your-domain.tld``, login using ``albert.einstein@example.com`` with password ``password`` and change default user accounts with **strong passwords**.
 3. In ``sparql.your-domain.tld``, create a repository ``crf`` in catalog ``/`` and create other users with permissions according to your needs (see `AllegroGraph documentation <https://franz.com/agraph/support/documentation/current/managing-users.html#Managing-users-with-AGWebView:-general-comments>`_ for details). For example, create an *anonymous* user with only *read* permissions to catalog */* and repository *crf*.
-4. Navigate to ``fdp.your-domain.tld`` and login again as ``albert.einstein@example.com`` and change default user accounts with strong passwords.
+4. Navigate to ``fdp.your-domain.tld`` and login again as ``albert.einstein@example.com`` and change default user accounts with **strong passwords**.
 5. In ``fdp.your-domain.tld``, create and publish catalog, dataset, and distribution representing CRF data based on your use case.
-6. Update ``submission-service/config.yml`` with UUID of your distribution from FDP. (If you used different than ``crf`` repository name in triple store, change ``sparql-endpoint`` accordingly.)
-7. Restart *VODAN in a Box* using ``docker-compose down`` and ``docker-compose up -d``.
+6. Update ``submission-service/config.yml`` with :abbr:`UUID (Universally Unique Identifier)` of your distribution URL from FDP, e.g. from ``https://fdp.vodan.fairdatapoint.org/distribution/3335345b-ee66-4678-ab73-74a4b6ea1bee`` it would be ``3335345b-ee66-4678-ab73-74a4b6ea1bee``. (If you used different than ``crf`` repository name in triple store, change ``sparql-endpoint`` accordingly.)
+7. Restart *VODAN in a Box* using ``docker-compose down`` and ``docker-compose up -d``. Wait a bit until all services start up (depending on your hardware, less than a minute).
 8. Verify setup by creating CRF, saving it, creating a report, and submitting a report.
 
 🎉 After this, your *VODAN in a Box* is ready to be used!
 
-For additional configuration options, see :ref:`configuration`.
+To check if everything is working, you can use ``docker-compose logs`` and ``docker-compose ps`` commands.
+
+⚙️ For additional configuration options, see :ref:`configuration`.
 
 Update
 ======
@@ -99,6 +101,7 @@ From root directory of ``vodan-deployment-production``:
    git pull
    docker-compose up -d
 
+This may need you to ``git stash`` your changes and then ``git stash pop`` them (and eventually solve git conflicts).
 
 Notes
 =====

@@ -1,6 +1,8 @@
 VODAN in a Box Documentation
 ============================
 
+Welcome to the *VODAN in a Box* documentation mainly focused on deployment.
+
 .. toctree::
    :caption: About
    :maxdepth: 2
@@ -16,10 +18,3 @@ VODAN in a Box Documentation
    deployment/local-deployment
    deployment/production-deployment
    deployment/configuration
-
-
-Indices and tables
-==================
-
-   about/about
-   about/usagescenarios

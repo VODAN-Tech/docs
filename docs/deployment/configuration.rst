@@ -73,6 +73,11 @@ To avoid persistence totally (i.e. all data will be lost after ``docker-compose 
      #volumes:
      #  - ./blazegraph:/blazegraph-data
 
+.. IMPORTANT::
+
+   Data backups are your responsibility. It is recommended to backup regularly all mounted volumes and store such backups in different site(s).
+
+
 CRF Data Submission
 ===================
 

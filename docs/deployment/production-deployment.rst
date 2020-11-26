@@ -87,7 +87,13 @@ Before providing *VODAN in a Box* you need also to get SSL certificates to be ab
 
 6. Uncomment lines at the end of ``proxy/nginx/nginx.conf``
 
-If getting certificates fail, it can be caused by incorrectly set DNS records. Optionally, verify if Nginx container is running and view its logs. You should also setup certificates renewal according to `Certbot documentation <https://certbot.eff.org/docs/using.html#renewing-certificates>`_.
+7. Set up automatic certificate renewal using cronjob: ``/etc/cron.d/certbot``
+
+.. code-block:: shell
+
+  0 4 * * *   root   perl -e 'sleep int(rand(43200))' && certbot -q renew && docker restart vodan-deployment-production_proxy_1
+
+If getting certificates fail, it can be caused by incorrectly set DNS records. Optionally, verify if Nginx container is running and view its logs. You can use other options to setup certificates renewal according to `Certbot documentation <https://certbot.eff.org/docs/using.html#renewing-certificates>`_. The example above tries to renew certificates every day at 4 AM and then restarts the proxy container. The name of docker container may differ if you do not use the same folder name as we do in this guide.
 
 First start
 -----------
